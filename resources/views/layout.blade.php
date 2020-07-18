@@ -8,7 +8,13 @@
 </head>
 <body>
     @section('header')
-        <h2>Use this CRUD app to create/delete Posts  </h2>
+        <h5 style="color:greenyellow">Use this CRUD app to create/delete Posts  </h5>
+        <h5>Simple menu:</h5>
+        <ul>
+            <li><a href="{{ route('home') }}">Home</a></li>
+            <li><a href="{{ route('contact') }}">Contact</a></li>
+            <li><a href="{{ route('blog-post',['id'=>1,'num'=>1]) }}">Blog-Post 1 , Motoryzacja</a></li>
+        </ul>
     <div>
         @yield('content')
     </div>

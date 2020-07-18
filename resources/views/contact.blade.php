@@ -8,6 +8,6 @@
 
 @section('content')
     <h3>Contact Page</h3>
-    <p>contact details</p>
+    <p>contact details to </p>
 @endsection
 
