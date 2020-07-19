@@ -13,18 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'home')->name('home');
-Route::view('/contact', 'contact')->name('contact');
-Route::get('/post/{id}/{num}', function ($id, $num) {
 
-    $section = [
-        1 => ['tytul' => 'motoryzacja'],
-        2 => ['tytul' => 'lotnictwo']
-    ];
-    $author = [
-        1 => ['author' => 'Romek'],
-        2 => ['author' => 'Patryk']
-    ];
-
-    return view('blog-post', ['section' => $section[$id], 'name' => $author[$num]]);
-})->name('blog-post');
+Route::get('/', 'HomeController@home')->name('home');
+Route::get('/contact', 'HomeController@contact')->name('contact');
+Route::get('/post/{id}/{num}', 'HomeController@blogPost')->name('blog-post');
