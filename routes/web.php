@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/', 'HomeController@home')->name('home');
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/post/{id}/{num}', 'HomeController@blogPost')->name('blog-post');
+Route::resource('/posts', 'PostController');
+// Route::get('/posts', 'PostController@index')->name('posts');

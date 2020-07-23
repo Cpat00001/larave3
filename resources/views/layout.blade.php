@@ -12,6 +12,8 @@
         <h5>Simple menu:</h5>
         <ul>
             <li><a href="{{ route('home') }}">Home</a></li>
+            <li><a href="{{ route('posts.index') }}">List of Posts</a></li>
+            <li><a href="{{ route('posts.create') }}">Create a post</a></li>
             <li><a href="{{ route('contact') }}">Contact</a></li>
             <li><a href="{{ route('blog-post',['id'=>1,'num'=>1]) }}">Blog-Post 1 , Motoryzacja</a></li>
         </ul>
