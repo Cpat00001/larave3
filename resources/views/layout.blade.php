@@ -18,7 +18,19 @@
             <li><a href="{{ route('blog-post',['id'=>1,'num'=>1]) }}">Blog-Post 1 , Motoryzacja</a></li>
         </ul>
     <div>
+        @if(session()->has('status'))
+            <h3 style="color:red">{{ session()->get('status') }}</h3>
+        @endif
         @yield('content')
     </div>
+    @if($errors->any())
+    <div style="background-color:red;color:white;height:auto">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 </body>
 </html>
