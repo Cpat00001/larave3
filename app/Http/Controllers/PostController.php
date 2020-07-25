@@ -75,10 +75,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePost $request, $id)
     {
         $post = BlogPost::findOrFail($id);
-        $validateData = $request->validate();
+        $validateData = $request->validated();
         $post->fill($validateData);
         $post->save();
         $request->session()->flash('status', 'Post UPDATED successfully');
@@ -91,8 +91,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $post = BlogPost::findOrFail($id);
+        $post->delete();
+        $request->session()->flash('status', 'Post was DELETED');
+        return redirect()->route('posts.index');
     }
 }
