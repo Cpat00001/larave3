@@ -7,7 +7,7 @@
         @csrf
         @include('posts._form')
         <br><br>
-        <input type="submit" value="Update post">
+        <input type="submit" value="Update post" class="btn btn-primary btn-block">
     </form>
 @endsection
 

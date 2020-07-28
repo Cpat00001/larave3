@@ -14,8 +14,8 @@ class AddTitleContentToBlogpostsTable extends Migration
     public function up()
     {
         Schema::table('blogposts', function (Blueprint $table) {
-            $table->string('title');
-            $table->string('content');
+            $table->string('title')->default('');
+            $table->string('content')->default('');
         });
     }
 

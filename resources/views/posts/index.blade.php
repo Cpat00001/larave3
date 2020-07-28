@@ -2,18 +2,22 @@
 
 @section('content')
 <h2>List of Posts:</h2>
+@if(count($posts) > 0)
 @foreach( $posts as $post)
-<div style="background-color:rgb(67, 155, 196);padding:15px;margin-bottom:5px;
+<div style="background-color:rgb(165, 185, 194);padding:15px;margin-bottom:5px;
 width:300px;height:auto;border: 1px solid black;">
     <h5><a href="{{ route('posts.show',['post'=>$post->id])}}">{{ $post->title }}</a></h5>
     <p>Post content: {{ $post->content }}</p>
-    <a href="{{ route('posts.edit',['post'=>$post->id]) }}"><button>Edit</button></a>
-    <form method="POST" action="{{ route('posts.destroy', ['post'=> $post->id]) }}" >
+    <a href="{{ route('posts.edit',['post'=>$post->id]) }}"><button class="btn btn-primary">Edit</button></a>
+    <form method="POST" class="fm-inline" action="{{ route('posts.destroy', ['post'=> $post->id]) }}" >
         @csrf
         @method('DELETE')
-        <input type="submit" value="DELETE">
+        <input type="submit" value="Delete" class="btn btn-danger">
     </form>
 
 </div>
 @endforeach
+@else
+    <h5>No blogPosts - create one!</h5>
+@endif
 @endsection

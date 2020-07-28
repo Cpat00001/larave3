@@ -40,7 +40,7 @@ class PostController extends Controller
         //validate and svae to DB table
         $validatedData = $request->validated();
         $blogPost = BlogPost::create($validatedData);
-        $request->session()->flash('status', 'Post was create Successfully');
+        $request->session()->flash('status', 'Post was creatED Successfully');
         return redirect()->route('posts.show', ['post' => $blogPost->id]);
     }
 

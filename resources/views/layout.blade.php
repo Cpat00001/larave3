@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <title>Page Name - @yield('title')</title>
 </head>
 <body>
@@ -18,19 +19,23 @@
             <li><a href="{{ route('blog-post',['id'=>1,'num'=>1]) }}">Blog-Post 1 , Motoryzacja</a></li>
         </ul>
     <div>
-        @if(session()->has('status'))
-            <h3 style="color:red">{{ session()->get('status') }}</h3>
+            <div class="container">
+                @if(session()->has('status'))
+                <h3 style="color:red">{{ session()->get('status') }}</h3>
+                @endif
+                @yield('content')
+            
+        </div>
+        @if($errors->any())
+        <div style="background-color:red;color:white;height:auto">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
         @endif
-        @yield('content')
     </div>
-    @if($errors->any())
-    <div style="background-color:red;color:white;height:auto">
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+    <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
