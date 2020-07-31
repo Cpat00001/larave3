@@ -8,4 +8,9 @@ class BlogPost extends Model
 {
     protected $table = 'blogposts';
     protected $fillable = ['title', 'content'];
+    //create relationship One to Many
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }
