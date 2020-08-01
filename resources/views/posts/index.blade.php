@@ -8,6 +8,15 @@
 width:300px;height:auto;border: 1px solid black;">
     <h5><a href="{{ route('posts.show',['post'=>$post->id])}}">{{ $post->title }}</a></h5>
     <p>Post content: {{ $post->content }}</p>
+
+     {{-- display comments count --}}
+     @if($post->comments_count)
+        <p>{{ $post->comments_count }} comments</p>
+     @else
+        <p>No comments yet.</p>
+     @endif
+
+
     <a href="{{ route('posts.edit',['post'=>$post->id]) }}"><button class="btn btn-primary">Edit</button></a>
     <form method="POST" class="fm-inline" action="{{ route('posts.destroy', ['post'=> $post->id]) }}" >
         @csrf
