@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\BlogPost;
+use App\Comment;
 
 class PostTest extends TestCase
 {
@@ -16,7 +17,7 @@ class PostTest extends TestCase
         $response = $this->get('/posts');
         $response->assertSeetext('No blogPosts');
     }
-    public function testSee1PostWhenThereIs1()
+    public function testSee1PostWhenThereIs1WithNoComments()
     {
         //Arrange Part -> wolaj private method z dolu pliku/classy
         //Arrange
@@ -34,6 +35,22 @@ class PostTest extends TestCase
         $this->assertDatabaseHas('blogposts', [
             'title' => 'New BlogPost',
         ]);
+    }
+    public function testSee1BlogPostWithComments()
+    {
+        //Arrange
+        $post = $this->createDummyBlogPost();
+        // $post = new BlogPost();
+        // $post->title = "New title";
+        // $post->content = "Content of the blogPost";
+        // $post->save();
+        // factory(Comment::class, 4)->create([
+        //     'blog_post_id' => $post->id
+        // ]);
+
+        //Acc
+        $response = $this->get('/posts');
+        $response->assertSeeText('4 comments');
     }
     //check if flash method shows up and new post exists
     public function testStoreValid()
@@ -109,5 +126,15 @@ class PostTest extends TestCase
             ->assertSessionHas('status');
         //check if displayed text on page is equals to the text in test
         $this->assertEquals(session('status'), 'Post was DELETED');
+    }
+
+    //function to create new BlogPost and add to hother function
+    private function createDummyBlogPost()
+    {
+        // $post = new BlogPost();
+        // $post->title = "New title";
+        // $post->content = "Content of the blogPost";
+        // $post->save();
+        return factory(BlogPost::class)->states('new-title')->create();
     }
 }
