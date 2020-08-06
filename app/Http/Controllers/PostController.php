@@ -9,6 +9,10 @@ use App\Http\Requests\StorePost;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['create', 'store', 'update', 'destroy']);
+    }
     /**
      * Display a listing of the resource.
      *

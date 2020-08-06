@@ -9,17 +9,43 @@
 </head>
 <body>
     @section('header')
-        <h5 style="color:greenyellow">Use this CRUD app to create/delete Posts  </h5>
-        <h5>Simple menu:</h5>
-        <ul>
-            <li><a href="{{ route('home') }}">Home</a></li>
-            <li><a href="{{ route('posts.index') }}">List of Posts</a></li>
-            <li><a href="{{ route('posts.create') }}">Create a post</a></li>
-            <li><a href="{{ route('contact') }}">Contact</a></li>
-            <li><a href="{{ route('blog-post',['id'=>1,'num'=>1]) }}">Blog-Post 1 , Motoryzacja</a></li>
-        </ul>
+    
     <div>
             <div class="container">
+                <div class="d-flex flex-column bd-highlight mb-3">
+                    <h5>Simple menu:</h5>
+                    <nav class="my-2 my-md-0 mr-md-3 bg-dark">
+                        <a href="{{ route('home') }}">Home</a>
+                        <a href="{{ route('posts.index') }}">List of Posts</a>
+                        <a href="{{ route('posts.create') }}">Create a post</a>
+                        <a href="{{ route('contact') }}">Contact</a>
+                        <a href="{{ route('blog-post',['id'=>1,'num'=>1]) }}">Blog-Post 1 , Motoryzacja</a>
+
+                        @guest
+                            @if(Route::has('register'))
+                            <p class="text-white">
+                                <a href="{{ route('register') }}">Register</a>
+                            </p>
+                            @endif
+                            <p class="text-white">
+                                <a href="{{ route('login') }}">Login</a>
+                            </p>
+                        @else
+                            <p class="text-white">
+                                <a hreff={{ route('logout') }}
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">Logout
+                                ({{ Auth::user()->name }})    
+                            </a>
+                            </p>
+                            <form action="{{ route('logout') }}" method="POST" id="logout-form"
+                                  style="display:none">
+                                  @csrf >
+                            </form>
+                        @endguest
+                    </nav>
+                </div>
+
                 @if(session()->has('status'))
                 <h3 style="color:red">{{ session()->get('status') }}</h3>
                 @endif

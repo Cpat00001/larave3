@@ -59,8 +59,8 @@ class PostTest extends TestCase
             'title' => 'Valid title',
             'content' => 'Some random text here',
         ];
-
-        $this->post('/posts', $params)
+        $this->actingAs($this->user())
+            ->post('/posts', $params)
             ->assertStatus(302)
             ->assertSessionHas('status');
 
@@ -72,7 +72,8 @@ class PostTest extends TestCase
             'title' => 'x',
             'content' => 'x'
         ];
-        $this->post('/posts', $params)
+        $this->actingAs($this->user())
+            ->post('/posts', $params)
             ->assertStatus(302)
             ->assertSessionHas('errors');
 
@@ -99,7 +100,8 @@ class PostTest extends TestCase
             'title' => 'Overwrite a title',
             'content' => 'overwrite a content',
         ];
-        $this->put("/posts/{$post->id}", $params)
+        $this->actingAs($this->user)
+            ->put("/posts/{$post->id}", $params)
             ->assertStatus(302)
             ->assertSessionHas('status');
 
@@ -121,7 +123,8 @@ class PostTest extends TestCase
         $post->save();
 
         //zrob HTTP Request do endpointu 
-        $this->delete("/posts/{$post->id}")
+        $this->actingAs($this->user())
+            ->delete("/posts/{$post->id}")
             ->assertStatus(302)
             ->assertSessionHas('status');
         //check if displayed text on page is equals to the text in test
