@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTitleContentToBlogpostsTable extends Migration
+class AddUserToBlogpostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,15 @@ class AddTitleContentToBlogpostsTable extends Migration
     public function up()
     {
         Schema::table('blogposts', function (Blueprint $table) {
-            $table->string('title')->default('');
+            // $table->unsignedBigInteger('user_id')->nullable();
             if (env('DB_CONNECTION') === 'sqlite_testing') {
-                $table->string('content')->default('');
+                $table->unsignedBigInteger('user_id')->default(0);
             } else {
-                $table->string('content');
+                $table->unsignedBigInteger('user_id');
             }
+
+            $table->foreign('user_id')
+                ->references('id')->on('users');
         });
     }
 
@@ -31,7 +34,8 @@ class AddTitleContentToBlogpostsTable extends Migration
     public function down()
     {
         Schema::table('blogposts', function (Blueprint $table) {
-            $table->dropColumn(['title', 'content']);
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
         });
     }
 }
