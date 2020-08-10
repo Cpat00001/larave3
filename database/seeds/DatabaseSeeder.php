@@ -11,17 +11,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $john = factory(App\User::class)->states('john-doe')->create();
-        $else = factory(App\User::class, 20)->create();
+        if ($this->command->confirm('Do you want to refresh the database?')) {
+            $this->command->call('migrate:refresh');
+            $this->command->info('Database was refreshed');
+        }
 
-        $users = $else->concat([$john]);
-        $posts = factory(App\BlogPost::class, 50)->make()->each(function ($post) use ($users) {
-            $post->user_id = $users->random()->id;
-            $post->save();
-        });
-        $comments = factory(App\Comment::class, 150)->make()->each(function ($comment) use ($posts) {
-            $comment->blog_post_id = $posts->random()->id;
-            $comment->save();
-        });
+        $this->call([
+            UsersTableSeeder::class,
+            BlogPostsTableSeeder::class,
+            CommentsTableSeeder::class
+        ]);
     }
 }
