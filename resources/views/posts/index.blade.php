@@ -5,7 +5,7 @@
 @if(count($posts) > 0)
 @foreach( $posts as $post)
 <div style="background-color:rgb(165, 185, 194);padding:15px;margin-bottom:5px;
-width:300px;height:auto;border: 1px solid black;">
+width:1000px;height:auto;border: 1px solid black;">
     <h5><a href="{{ route('posts.show',['post'=>$post->id])}}">{{ $post->title }}</a></h5>
     <p>Post content: {{ $post->content }}</p>
 
