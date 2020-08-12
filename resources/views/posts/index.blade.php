@@ -7,6 +7,10 @@
 <div style="background-color:rgb(165, 185, 194);padding:15px;margin-bottom:5px;
 width:1000px;height:auto;border: 1px solid black;">
     <h5><a href="{{ route('posts.show',['post'=>$post->id])}}">{{ $post->title }}</a></h5>
+    <p class="text-muted">
+        Added: {{ $post->created_at->diffForHumans()}}
+        by: {{ $post->user->name }}
+    </p>
     <p>Post content: {{ $post->content }}</p>
 
      {{-- display comments count --}}

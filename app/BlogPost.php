@@ -15,15 +15,19 @@ class BlogPost extends Model
     {
         return $this->hasMany('App\Comment');
     }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
     public static function boot()
     {
-        parent::boot(); 
-        static::deleting(function(BlogPost $blogPost){
+        parent::boot();
+        static::deleting(function (BlogPost $blogPost) {
             $blogPost->comments()->delete();
             // dd('I was deleted');
         });
 
-        static::restorinf(function(BlogPost $blogPost){
+        static::restoring(function (BlogPost $blogPost) {
             $blogPost->comments()->restore();
         });
     }

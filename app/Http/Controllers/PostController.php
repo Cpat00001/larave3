@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\BlogPost;
 use App\Http\Requests\StorePost;
 // use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -79,6 +80,12 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = BlogPost::findOrFail($id);
+        // pierwszy sposob na authoryzacje action
+        // if (Gate::denies('update-post', $post)) {
+        //     abort(403, "You are not allowed to Update that BlogPost");
+        // }
+        //drugi sposob na authoryzacje action
+        Gate::authorize('update-post', $post);
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -92,6 +99,12 @@ class PostController extends Controller
     public function update(StorePost $request, $id)
     {
         $post = BlogPost::findOrFail($id);
+
+        //pierwszy sposob na autoryzcja wykonania action
+        if (Gate::denies('update-post', $post)) {
+            abort(403, "You are not allowed to Update that BlogPost");
+        }
+
         $validateData = $request->validated();
         $post->fill($validateData);
         $post->save();
@@ -108,6 +121,12 @@ class PostController extends Controller
     public function destroy(Request $request, $id)
     {
         $post = BlogPost::findOrFail($id);
+        // pierwszy sposob na autoryzcja action
+        // if (Gate::denies('delete-post', $post)) {
+        //     abort(403, "You are not authorized to delete this post");
+        // }
+        //drugi sposob na autoryzacje action
+        Gate::authorize('update-post', $post);
         $post->delete();
         $request->session()->flash('status', 'Post was DELETED');
         return redirect()->route('posts.index');

@@ -129,6 +129,7 @@ class PostTest extends TestCase
             ->assertSessionHas('status');
         //check if displayed text on page is equals to the text in test
         $this->assertEquals(session('status'), 'Post was DELETED');
+        $this->assertSoftDeleted('blogposts', $post->toArray());
     }
 
     //function to create new BlogPost and add to hother function
