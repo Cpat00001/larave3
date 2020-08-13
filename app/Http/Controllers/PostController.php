@@ -85,7 +85,7 @@ class PostController extends Controller
         //     abort(403, "You are not allowed to Update that BlogPost");
         // }
         //drugi sposob na authoryzacje action
-        Gate::authorize('update-post', $post);
+        Gate::authorize('posts.update', $post);
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -101,7 +101,7 @@ class PostController extends Controller
         $post = BlogPost::findOrFail($id);
 
         //pierwszy sposob na autoryzcja wykonania action
-        if (Gate::denies('update-post', $post)) {
+        if (Gate::denies('posts.update', $post)) {
             abort(403, "You are not allowed to Update that BlogPost");
         }
 
@@ -126,7 +126,7 @@ class PostController extends Controller
         //     abort(403, "You are not authorized to delete this post");
         // }
         //drugi sposob na autoryzacje action
-        Gate::authorize('update-post', $post);
+        Gate::authorize('posts.delete', $post);
         $post->delete();
         $request->session()->flash('status', 'Post was DELETED');
         return redirect()->route('posts.index');
