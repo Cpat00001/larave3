@@ -20,13 +20,16 @@ width:1000px;height:auto;border: 1px solid black;">
         <p>No comments yet.</p>
      @endif
 
-
+    @can('update',$post)
     <a href="{{ route('posts.edit',['post'=>$post->id]) }}"><button class="btn btn-primary">Edit</button></a>
+    @endcan
+    @can('delete',$post)
     <form method="POST" class="fm-inline" action="{{ route('posts.destroy', ['post'=> $post->id]) }}" >
         @csrf
         @method('DELETE')
         <input type="submit" value="Delete" class="btn btn-danger">
     </form>
+    @endcan
 
 </div>
 @endforeach
